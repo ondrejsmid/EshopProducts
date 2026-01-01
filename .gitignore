@@ -1,0 +1,44 @@
+# Ignore build outputs
+bin/
+obj/
+out/
+**/bin/
+**/obj/
+
+# Ignore runtime files
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Publish
+publish/
+
+# Test results
+TestResults/
+*.trx
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
