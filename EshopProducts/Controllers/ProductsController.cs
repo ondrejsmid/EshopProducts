@@ -17,10 +17,12 @@ namespace EshopProducts.Controllers
 
         // ---------- v1 ----------
         /// <summary>
-        /// Returns all products (no pagination).
+        /// Returns all products (no pagination). Version 1.0.
         /// </summary>
+        /// <returns>List of all products.</returns>
         [HttpGet]
         [MapToApiVersion("1.0")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAll()
         {
             return await _db.Products
@@ -30,10 +32,14 @@ namespace EshopProducts.Controllers
 
         // ---------- v2 ----------
         /// <summary>
-        /// Returns products with pagination.
+        /// Returns products with pagination. Version 2.0.
         /// </summary>
+        /// <param name="page">Page number (default = 1).</param>
+        /// <param name="pageSize">Page size (default = 10).</param>
+        /// <returns>Paged list of products with pagination headers.</returns>
         [HttpGet]
         [MapToApiVersion("2.0")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllV2(
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10)
@@ -56,7 +62,14 @@ namespace EshopProducts.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Returns a single product by ID.
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>The requested product, or 404 if not found.</returns>
         [HttpGet("{id:long}")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> Get(long id)
         {
             var product = await _db.Products.FindAsync(id);
@@ -64,7 +77,14 @@ namespace EshopProducts.Controllers
             return product;
         }
 
+        /// <summary>
+        /// Creates a new product.
+        /// </summary>
+        /// <param name="product">Product object to create</param>
+        /// <returns>The created product.</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Product>> Create(Product product)
         {
             _db.Products.Add(product);
@@ -75,7 +95,15 @@ namespace EshopProducts.Controllers
                 product);
         }
 
+        /// <summary>
+        /// Updates the description of a product.
+        /// </summary>
+        /// <param name="id">ID of the product to update</param>
+        /// <param name="description">New description value</param>
+        /// <returns>No content if updated, 404 if not found</returns>
         [HttpPatch("{id:long}/description")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> PatchDescription(
             long id,
             [FromBody] string? description)
