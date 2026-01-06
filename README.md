@@ -28,6 +28,7 @@ The project demonstrates API versioning, Entity Framework Core, database seeding
 Verify prerequisites:
 ```bash
 dotnet --version
+```
 
 ---
 
@@ -37,6 +38,7 @@ dotnet --version
 
 ```bash
 dotnet run --project .\EshopProducts\EshopProducts.csproj
+```
 
 - Go to https://localhost:7279/index.html
 
@@ -46,3 +48,4 @@ dotnet run --project .\EshopProducts\EshopProducts.csproj
 
 ```bash
 dotnet test .\EshopProductsTests
+```
