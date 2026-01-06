@@ -28,3 +28,21 @@ The project demonstrates API versioning, Entity Framework Core, database seeding
 Verify prerequisites:
 ```bash
 dotnet --version
+
+---
+
+## Running the API
+
+- From repo root, run:
+
+```bash
+dotnet run --project .\EshopProducts\EshopProducts.csproj
+
+- Go to https://localhost:7279/index.html
+
+## Running tests
+
+- From repo root, run:
+
+```bash
+dotnet test .\EshopProductsTests
